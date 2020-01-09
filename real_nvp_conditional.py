@@ -9,6 +9,8 @@ from torch.autograd import Variable
 
 from astropy.io import fits
 
+import h5py
+
 
 #=========================================================================================================
 # import 1D training set
