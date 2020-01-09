@@ -14,71 +14,71 @@ import h5py
 
 #=============================================================================================================
 # define network
-class ConvolutionalImplicitModel(nn.Module):
-    def __init__(self, z_dim):
-        super(ConvolutionalImplicitModel, self).__init__()
-        self.z_dim = z_dim
-        self.tconv1 = nn.ConvTranspose2d(z_dim, 1024, 1, 1, bias=False)
-        self.bn1 = nn.BatchNorm2d(1024)
-        self.tconv2 = nn.ConvTranspose2d(1024, 512, 7, 1, bias=False)
-        self.bn2 = nn.BatchNorm2d(512)
-        self.tconv3 = nn.ConvTranspose2d(512, 64, 4, 3, padding=0, bias=False)
-        self.bn3 = nn.BatchNorm2d(64)
-        self.tconv4 = nn.ConvTranspose2d(64, 1, 4, 3, padding=2, output_padding=1, bias=False)
-        self.bn4 = nn.BatchNorm2d(1)
-        self.relu = nn.LeakyReLU()
-
-    def forward(self, z):
-        z = self.relu(self.bn1(self.tconv1(z)))
-        z = self.relu(self.bn2(self.tconv2(z)))
-        z = self.relu(self.bn3(self.tconv3(z)))
-        z = self.relu(self.bn4(self.tconv4(z)))
-        return z
+# class ConvolutionalImplicitModel(nn.Module):
+#     def __init__(self, z_dim):
+#         super(ConvolutionalImplicitModel, self).__init__()
+#         self.z_dim = z_dim
+#         self.tconv1 = nn.ConvTranspose2d(z_dim, 1024, 1, 1, bias=False)
+#         self.bn1 = nn.BatchNorm2d(1024)
+#         self.tconv2 = nn.ConvTranspose2d(1024, 512, 7, 1, bias=False)
+#         self.bn2 = nn.BatchNorm2d(512)
+#         self.tconv3 = nn.ConvTranspose2d(512, 64, 4, 3, padding=0, bias=False)
+#         self.bn3 = nn.BatchNorm2d(64)
+#         self.tconv4 = nn.ConvTranspose2d(64, 1, 4, 3, padding=2, output_padding=1, bias=False)
+#         self.bn4 = nn.BatchNorm2d(1)
+#         self.relu = nn.LeakyReLU()
+#
+#     def forward(self, z):
+#         z = self.relu(self.bn1(self.tconv1(z)))
+#         z = self.relu(self.bn2(self.tconv2(z)))
+#         z = self.relu(self.bn3(self.tconv3(z)))
+#         z = self.relu(self.bn4(self.tconv4(z)))
+#         return z
 
 #-----------------------------------------------------------------------------------------------------------
 # # # define network
-# class ConvolutionalImplicitModel(nn.Module):
-#     def __init__(self, z_dim, init_weight_factor = 1.):
-#         super( ConvolutionalImplicitModel, self).__init__()
-#         self.z_dim = z_dim
-#         self.init_weight_factor = init_weight_factor
-#
-#         layers = []
-#
-#         #channel = 256
-#         channel = 32
-#
-#         for i in range(5):
-#             for j in range(2):
-#
-#                 if i == 0 and j == 0:
-#                     layers.append(torch.nn.ConvTranspose2d(z_dim, channel, 4, stride=1, padding=0))
-#                     layers.append(torch.nn.BatchNorm2d(channel, momentum=0.001, affine=False))
-#                     layers.append(torch.nn.LeakyReLU(0.2, inplace=True))
-#                 else:
-#                     layers.append(torch.nn.Conv2d(channel, channel, 5, stride=1, padding=2))
-#                     layers.append(torch.nn.BatchNorm2d(channel, momentum=0.001, affine=False))
-#                     layers.append(torch.nn.LeakyReLU(0.2, inplace=True))
-#
-#             if i < 4:
-#                 layers.append(torch.nn.Upsample(scale_factor=2, mode='bilinear', align_corners = False))
-#             else:
-#                 layers.append(torch.nn.Conv2d(channel, 1, 5, stride=1, padding=2))
-#                 layers.append(torch.nn.LeakyReLU())
-#
-#         self.model = torch.nn.Sequential(*layers)
-#         self.add_module("model", self.model)
-#
-#     def forward(self, z):
-#         return self.model(z)
-#
-#     def get_initializer(self):
-#         def initializer(m):
-#             if type(m) == nn.Conv2d or type(m) == nn.ConvTranspose2d:
-#                 with torch.no_grad():
-#                     m.weight *= self.init_weight_factor
-#                     m.bias *= self.init_weight_factor
-#         return initializer
+class ConvolutionalImplicitModel(nn.Module):
+    def __init__(self, z_dim, init_weight_factor = 1.):
+        super( ConvolutionalImplicitModel, self).__init__()
+        self.z_dim = z_dim
+        self.init_weight_factor = init_weight_factor
+
+        layers = []
+
+        #channel = 256
+        channel = 32
+
+        for i in range(5):
+            for j in range(2):
+
+                if i == 0 and j == 0:
+                    layers.append(torch.nn.ConvTranspose2d(z_dim, channel, 4, stride=1, padding=0))
+                    layers.append(torch.nn.BatchNorm2d(channel, momentum=0.001, affine=False))
+                    layers.append(torch.nn.LeakyReLU(0.2, inplace=True))
+                else:
+                    layers.append(torch.nn.Conv2d(channel, channel, 5, stride=1, padding=2))
+                    layers.append(torch.nn.BatchNorm2d(channel, momentum=0.001, affine=False))
+                    layers.append(torch.nn.LeakyReLU(0.2, inplace=True))
+
+            if i < 4:
+                layers.append(torch.nn.Upsample(scale_factor=2, mode='bilinear', align_corners = False))
+            else:
+                layers.append(torch.nn.Conv2d(channel, 1, 5, stride=1, padding=2))
+                layers.append(torch.nn.LeakyReLU())
+
+        self.model = torch.nn.Sequential(*layers)
+        self.add_module("model", self.model)
+
+    def forward(self, z):
+        return self.model(z)
+
+    def get_initializer(self):
+        def initializer(m):
+            if type(m) == nn.Conv2d or type(m) == nn.ConvTranspose2d:
+                with torch.no_grad():
+                    m.weight *= self.init_weight_factor
+                    m.bias *= self.init_weight_factor
+        return initializer
 
 
 #=============================================================================================================
@@ -226,6 +226,7 @@ def main(*args):
     # initiate network
     z_dim = 4
     Sx_dim = train_Sx.shape[1]
+    print(z_dim, Sx_dim)
     imle = IMLE(z_dim, Sx_dim)
 
     # train the network
