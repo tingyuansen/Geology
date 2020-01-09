@@ -214,7 +214,7 @@ def main(*args):
 
     # restore data
     f = h5py.File('../Ens_saved_YST.mat', 'r')
-    train_data = np.array(f['Vels'])[:,None,:,:]/5000.
+    train_data = np.array(f['Vels'])[:,None,::2,::2]/5000.
     print(train_data.shape)
 
 #---------------------------------------------------------------------------------------------
