@@ -97,7 +97,7 @@ class IMLE():
         #self.model.load_state_dict(state_dict)
 
 #-----------------------------------------------------------------------------------------------------------
-    def train(self, data_np, data_Sx, name_JL, base_lr=1e-4, batch_size=128, num_epochs=3000,\
+    def train(self, data_np, data_Sx, base_lr=1e-4, batch_size=128, num_epochs=3000,\
              decay_step=25, decay_rate=0.95, staleness=100, num_samples_factor=100):
 
         # define metric
@@ -205,8 +205,7 @@ class IMLE():
                           mse_err=err / num_batches)
 
                 # save network
-                torch.save(self.model.state_dict(), '../net_weights_2D_' + name_JL + '_epoch=' \
-                             + str(epoch) + '.pth')
+                torch.save(self.model.state_dict(), '../net_weights_2D_epoch=' + str(epoch) + '.pth')
 
 
 #=============================================================================================================
@@ -215,8 +214,7 @@ def main(*args):
 
     # restore data
     f = h5py.File('../Ens_saved_YST.mat', 'r')
-    training_x = np.array(f['Vels'])[:,None,:,:]/5000.
-    train_data = temp["training_data"][:,None,32:-32,32:-32]
+    training_data = np.array(f['Vels'])[:,None,:,:]/5000.
     print(train_data.shape)
 
 #---------------------------------------------------------------------------------------------
@@ -231,7 +229,7 @@ def main(*args):
     imle = IMLE(z_dim, Sx_dim)
 
     # train the network
-    imle.train(train_data, train_Sx, name_JL)
+    imle.train(train_data, train_Sx)
 
 
 #---------------------------------------------------------------------------------------------
