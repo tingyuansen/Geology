@@ -9,6 +9,8 @@ import sys
 sys.path.append('../dci_code')
 from dci import DCI
 
+import h5py
+
 
 #=============================================================================================================
 # define network
