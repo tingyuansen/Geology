@@ -21,7 +21,6 @@ from astropy.io import fits
 
 #-------------------------------------------------------------------------------------------------------
 # import 2D training set
-temp = np.loadtxt("geology_data.txt")
 f = h5py.File('../Ens_saved_YST.mat', 'r')
 x_tr = np.array(f['Pred'])
 
