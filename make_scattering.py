@@ -13,6 +13,7 @@ import sys
 import numpy as np
 import h5py
 
+
 #=========================================================================================================
 # main body of the script
 def main():
@@ -52,7 +53,7 @@ def main():
         except:
             Sx_array = Sx[i]
     print(Sx_array.shape)
-    
+
     np.save("Sx_2D.npy", Sx_array)
 
 if __name__ == '__main__':

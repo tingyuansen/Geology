@@ -11,15 +11,25 @@ from astropy.io import fits
 
 
 #=========================================================================================================
-# import training set
-temp = np.loadtxt("geology_data.txt")
+# import 1D training set
+# temp = np.loadtxt("geology_data.txt")
 
 # velocities (1-10), depths of voronoi cells (1-10),
 # and then the outputs are 11 predicted Love wave velocities (one for each of 11 frequencies)
-x_tr = temp[:,:20]
-y_tr = temp[:,20:]
+# x_tr = temp[:,:20]
+# y_tr = temp[:,20:]
+
+#-------------------------------------------------------------------------------------------------------
+# import 2D training set
+temp = np.loadtxt("geology_data.txt")
+f = h5py.File('../Ens_saved_YST.mat', 'r')
+x_tr = np.array(f['Pred'])
+
+y_tr np.load("Sx_2D.npy")
 
 
+#=========================================================================================================
+# convert to pytorch variables
 x_tr = torch.from_numpy(x_tr).type(torch.cuda.FloatTensor)
 y_tr = torch.from_numpy(y_tr).type(torch.cuda.FloatTensor)
 
