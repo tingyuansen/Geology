@@ -1,19 +1,10 @@
-# Autoregressive flow
+# Geology project
 
-Estimating spectroscopic-photometric distances with autoregressive flow.
+In collaboration with Vedran Lekic (UMd)
 
 ## Installation
-Through pip
-```
-pip install ...
-```
 
-or clone this repository and run code from the base directory.
-```
-python setup.py install
-````
-
-The [tutorial](blah) shows some simple use cases.
+Blah
 
 ## Dependencies
 * Training a new neural network requires [PyTorch](http://pytorch.org/).
@@ -25,12 +16,12 @@ The [tutorial](blah) shows some simple use cases.
 
 ## Authors
 * [Yuan-Sen Ting](http://www.sns.ias.edu/~ting/) -- ting at ias dot edu
-* [Francois Lanusse](https://flanusse.net/)
-* [Nesar Ramanchandra](https://nesar.github.io/)
+* [Vedran Lekic](https://www.geol.umd.edu/vedranlekic) -- ved at umd dot edu
+
 
 ## Licensing
 
-Copyright 2019 by Yuan-Sen Ting.
+Copyright 2020 by Yuan-Sen Ting.
 
 In brief, you can use, distribute, and change this package as you please.
 
