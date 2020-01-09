@@ -25,7 +25,7 @@ temp = np.loadtxt("geology_data.txt")
 f = h5py.File('../Ens_saved_YST.mat', 'r')
 x_tr = np.array(f['Pred'])
 
-y_tr np.load("Sx_2D.npy")
+y_tr = np.load("Sx_2D.npy")
 
 
 #=========================================================================================================
