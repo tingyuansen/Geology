@@ -226,7 +226,6 @@ def main(*args):
     # initiate network
     z_dim = 4
     Sx_dim = train_Sx.shape[1]
-    print(z_dim, Sx_dim)
     imle = IMLE(z_dim, Sx_dim)
 
     # train the network
