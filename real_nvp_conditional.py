@@ -12,7 +12,6 @@ from astropy.io import fits
 import h5py
 
 
-
 #=========================================================================================================
 # import 1D training set
 # temp = np.loadtxt("geology_data.txt")
