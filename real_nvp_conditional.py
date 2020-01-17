@@ -23,7 +23,7 @@ import h5py
 
 #-------------------------------------------------------------------------------------------------------
 # import 2D training set
-f = h5py.File('../Ens_saved_YST.mat', 'r')
+f = h5py.File('../geology_data_2D.mat', 'r')
 x_tr = np.array(f['Pred'])
 
 y_tr = np.load("Sx_2D.npy")
